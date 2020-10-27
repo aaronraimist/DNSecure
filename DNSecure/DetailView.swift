@@ -10,6 +10,10 @@ import SwiftUI
 struct DetailView {
     @Binding var server: Resolver
     @Binding var isOn: Bool
+
+    // TODO: Move these properties into Resolver
+    @State var useOnDemandRules = false
+    @State var onDemandRules: [String] = []
 }
 
 extension DetailView: View {
@@ -153,6 +157,17 @@ extension DetailView: View {
                         .keyboardType(.URL)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
+                    }
+                }
+            }
+            Section(header: Text("On Demand Rules")) {
+                Toggle("Enable On Demand Rules", isOn: self.$useOnDemandRules)
+                if self.useOnDemandRules {
+                    ForEach(self.onDemandRules, id: \.self) {
+                        NavigationLink($0, destination: RuleView(name: $0))
+                    }
+                    Button("Add New Rule") {
+                        self.onDemandRules.append("New Rule")
                     }
                 }
             }

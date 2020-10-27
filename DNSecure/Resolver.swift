@@ -11,6 +11,8 @@ import NetworkExtension
 struct DoTConfiguration {
     var servers: [String] = []
     var serverName: String? = nil
+    // TODO: Determine a type
+    var onDemandRules: [String]? = nil
 
     func toDNSSettings() -> NEDNSOverTLSSettings {
         let settings = NEDNSOverTLSSettings(servers: self.servers)
@@ -24,6 +26,8 @@ extension DoTConfiguration: Codable {}
 struct DoHConfiguration {
     var servers: [String] = []
     var serverURL: URL? = nil
+    // TODO: Determine a type
+    var onDemandRules: [String]? = nil
 
     func toDNSSettings() -> NEDNSOverHTTPSSettings {
         let settings = NEDNSOverHTTPSSettings(servers: self.servers)
